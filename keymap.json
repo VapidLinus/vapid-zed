@@ -1,0 +1,286 @@
+// Port of ~/ideavimrc/.vimrc (IdeaVim + Intellimacs) to Zed.
+// Leader is space; å is a second prefix for the space m (major mode) group.
+[
+  {
+    // Free space from its default (move right) so it waits for the rest of a leader sequence.
+    "context": "VimControl && !menu",
+    "bindings": {
+      "space": null,
+
+      "g shift-h": "vim::FirstNonWhitespace",
+      "g shift-l": "vim::EndOfLine",
+      "'": ["vim::PushJump", { "line": false }],
+      "`": ["vim::PushJump", { "line": true }],
+      "shift-ö": ["workspace::SendKeystrokes", ":"]
+    }
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "m m": "editor::ToggleBookmark",
+      "z m": "editor::FoldAll",
+      "z r": "editor::UnfoldAll"
+    }
+  },
+  {
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      "ö": "vim::SwitchToNormalMode"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ö": "vim::NormalBefore",
+      "shift-ö": ["workspace::SendKeystrokes", "escape :"]
+    }
+  },
+  {
+    // Leader bindings that work in both normal and visual mode.
+    "context": "(vim_mode == normal || vim_mode == visual) && !menu",
+    "bindings": {
+      "space space": "command_palette::Toggle",
+      "space '": "terminal_panel::ToggleFocus",
+      "space *": "editor::FindAllReferences",
+      "space /": "pane::DeploySearch",
+      "space ?": "zed::OpenKeymap",
+      "space tab": "pane::AlternateFile",
+
+      "space 1": ["pane::ActivateItem", 0],
+      "space 2": ["pane::ActivateItem", 1],
+      "space 3": ["pane::ActivateItem", 2],
+      "space 4": ["pane::ActivateItem", 3],
+      "space 5": ["pane::ActivateItem", 4],
+      "space 6": ["pane::ActivateItem", 5],
+      "space 7": ["pane::ActivateItem", 6],
+      "space 8": ["pane::ActivateItem", 7],
+      "space 9": ["pane::ActivateItem", 8],
+      "space 0": ["pane::ActivateItem", 9],
+
+      "space shift-y": ["workspace::SendKeystrokes", "\" + y"],
+      "space shift-p": ["workspace::SendKeystrokes", "\" + p"],
+
+      "space b b": "tab_switcher::Toggle",
+      "space b d": "pane::CloseActiveItem",
+      "space b ctrl-d": "pane::CloseOtherItems",
+      "space b x": "pane::CloseAllItems",
+      "space b n": "pane::ActivateNextItem",
+      "space b k": "pane::ActivateNextItem",
+      "space b p": "pane::ActivatePreviousItem",
+      "space b j": "pane::ActivatePreviousItem",
+      "space b 0": ["pane::ActivateItem", 0],
+      "space b $": "pane::ActivateLastItem",
+      "space b t": "pane::TogglePinTab",
+      "space b u": "pane::ReopenClosedItem",
+      "space b s": "workspace::NewFile",
+
+      "space shift-b t": "editor::ToggleBookmark",
+      "space shift-b shift-t": "editor::ToggleBookmarkWithLabel",
+      "space shift-b n": "editor::GoToNextBookmark",
+      "space shift-b p": "editor::GoToPreviousBookmark",
+      "space shift-b shift-n": "editor::GoToPreviousBookmark",
+      "space shift-b l": "editor::ViewBookmarks",
+
+      "space ; ;": "editor::ToggleComments",
+      "space c l": "editor::ToggleComments",
+      "space c b": "editor::ToggleBlockComments",
+
+      "space e n": "editor::GoToDiagnostic",
+      "space e p": "editor::GoToPreviousDiagnostic",
+      "space e shift-n": "editor::GoToPreviousDiagnostic",
+      "space e l": "diagnostics::Deploy",
+      "space e r": "editor::ToggleCodeActions",
+      "space e x": "editor::Hover",
+
+      "space f f": "file_finder::Toggle",
+      "space f shift-f": "file_finder::Toggle",
+      "space f r": "file_finder::Toggle",
+      "space f s": "workspace::Save",
+      "space f shift-s": "workspace::SaveAll",
+      "space f t": "project_panel::ToggleFocus",
+      "space f n": "workspace::NewFile",
+      "space f b": "editor::ViewBookmarks",
+      "space f y y": "workspace::CopyPath",
+      "space f e d": "zed::OpenSettingsFile",
+      "space f e r": "zed::OpenKeymapFile",
+
+      "space g b": "git::Branch",
+      "space g c": "git::Clone",
+      "space g i": "git::Init",
+      "space g d": "editor::GoToDefinition",
+      "space g p": "git::Push",
+      "space g s": "git_panel::ToggleFocus",
+      "space g shift-g": "git_panel::ToggleFocus",
+      "space g f l": "git::FileHistory",
+      "space g v g": "git::Blame",
+      "space g v +": "git::Pull",
+
+      "space h k": "zed::OpenKeymap",
+      "space h d k": "zed::OpenKeymap",
+      "space h d b": "zed::OpenKeymap",
+
+      "space j =": "editor::Format",
+      "space j c": "project_symbols::Toggle",
+      "space j s": "project_symbols::Toggle",
+      "space j e": "outline::Toggle",
+      "space j d": "project_panel::ToggleFocus",
+      "space j shift-d": "project_panel::ToggleFocus",
+      "space j j": "vim::HelixJumpToWord",
+
+      "space m = =": "editor::Format",
+      "space m d b": "editor::ToggleBreakpoint",
+      "space m d shift-b": "debug_panel::ToggleFocus",
+      "space m d c": "debugger::Continue",
+      "space m d d": "debugger::Start",
+      "space m d n": "debugger::StepOver",
+      "space m d o": "debugger::StepOut",
+      "space m d s": "debugger::StepInto",
+      "space m g g": "editor::GoToDefinition",
+      "space m g i": "editor::GoToImplementation",
+      "space m g t": "editor::GoToTypeDefinition",
+      "space m h c": "call_hierarchy::ShowIncomingCalls",
+      "space m h h": "editor::Hover",
+      "space m h u": "editor::FindAllReferences",
+      "space m h shift-u": "editor::FindAllReferences",
+      "space m p r": "task::Spawn",
+      "space m r r": "editor::Rename",
+      "space m r i": "editor::OrganizeImports",
+      "space m r g": "editor::ToggleCodeActions",
+      "space m r shift-r": "editor::ToggleCodeActions",
+      "space m r n": "workspace::NewFile",
+
+      "å = =": "editor::Format",
+      "å d b": "editor::ToggleBreakpoint",
+      "å d shift-b": "debug_panel::ToggleFocus",
+      "å d c": "debugger::Continue",
+      "å d d": "debugger::Start",
+      "å d n": "debugger::StepOver",
+      "å d o": "debugger::StepOut",
+      "å d s": "debugger::StepInto",
+      "å g g": "editor::GoToDefinition",
+      "å g i": "editor::GoToImplementation",
+      "å g t": "editor::GoToTypeDefinition",
+      "å h c": "call_hierarchy::ShowIncomingCalls",
+      "å h h": "editor::Hover",
+      "å h u": "editor::FindAllReferences",
+      "å h shift-u": "editor::FindAllReferences",
+      "å p r": "task::Spawn",
+      "å r r": "editor::Rename",
+      "å r i": "editor::OrganizeImports",
+      "å r g": "editor::ToggleCodeActions",
+      "å r shift-r": "editor::ToggleCodeActions",
+      "å r n": "workspace::NewFile",
+
+      "space n +": "vim::Increment",
+      "space n =": "vim::Increment",
+      "space n -": "vim::Decrement",
+
+      "space p f": "file_finder::Toggle",
+      "space p b": "file_finder::Toggle",
+      "space p h": "file_finder::Toggle",
+      "space p r": "file_finder::Toggle",
+      "space p p": "projects::OpenRecent",
+      "space p t": "project_panel::ToggleFocus",
+      "space p shift-d": "project_panel::ToggleFocus",
+      "space p !": "terminal_panel::ToggleFocus",
+      "space p v": "git_panel::ToggleFocus",
+      "space p shift-r": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space p shift-t": "task::Rerun",
+
+      "space q q": "workspace::CloseWindow",
+      "space q f": "workspace::CloseWindow",
+      "space q shift-q": "zed::Quit",
+
+      "space r s": "pane::DeploySearch",
+      "space shift-r r": "task::Spawn",
+      "space shift-r a": "task::Spawn",
+      "space shift-r s": "task::Spawn",
+
+      "space s e": "editor::Rename",
+      "space s shift-e": "file_finder::Toggle",
+      "space s f": "buffer_search::Deploy",
+      "space s r": "buffer_search::DeployReplace",
+      "space s l": "pane::DeploySearch",
+      "space s p": "pane::DeploySearch",
+      "space s s": "pane::DeploySearch",
+      "space s shift-p": "editor::FindAllReferences",
+
+      "space t l": "editor::ToggleSoftWrap",
+      "space t n": "editor::ToggleLineNumbers",
+      "space t r": "editor::ToggleRelativeLineNumbers",
+      "space t i": "editor::ToggleIndentGuides",
+      "space shift-t t": "workspace::ToggleCenteredLayout",
+      "space shift-t m": "workspace::ToggleAllDocks",
+      "space shift-t p": "zed::ToggleFullScreen",
+
+      "space v i f": "pane::RevealInProjectPanel",
+      "space v i e": "editor::RevealInFileManager",
+
+      // wv/ws move the current tab into a new split, like IdeaVim's MoveTabRight/MoveTabDown.
+      "space w v": "pane::SplitAndMoveRight",
+      "space w s": "pane::SplitAndMoveDown",
+      "space w /": "pane::SplitRight",
+      "space w -": "pane::SplitDown",
+      "space w shift-v": "pane::SplitRight",
+      "space w shift-s": "pane::SplitDown",
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w j": "workspace::ActivatePaneDown",
+      "space w k": "workspace::ActivatePaneUp",
+      "space w l": "workspace::ActivatePaneRight",
+      "space w left": "workspace::ActivatePaneLeft",
+      "space w down": "workspace::ActivatePaneDown",
+      "space w up": "workspace::ActivatePaneUp",
+      "space w right": "workspace::ActivatePaneRight",
+      "space w m": "workspace::ToggleZoom",
+      "space w w": "workspace::ActivateNextPane",
+      "space w d": "workspace::CloseAllItemsAndPanes",
+      "space w x": "workspace::CloseAllItemsAndPanes",
+
+      "space x shift-j": "editor::MoveLineDown",
+      "space x shift-k": "editor::MoveLineUp",
+
+      "space z +": "zed::IncreaseBufferFontSize",
+      "space z =": "zed::IncreaseBufferFontSize",
+      "space z -": "zed::DecreaseBufferFontSize",
+      "space z 0": "zed::ResetBufferFontSize",
+      "space z x +": "zed::IncreaseBufferFontSize",
+      "space z x =": "zed::IncreaseBufferFontSize",
+      "space z x -": "zed::DecreaseBufferFontSize",
+      "space z x 0": "zed::ResetBufferFontSize"
+    }
+  },
+  {
+    // Leader bindings built from keystrokes, which only make sense in normal mode.
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "space b shift-p": ["workspace::SendKeystrokes", "g g shift-v shift-g p"],
+      "space c p": ["workspace::SendKeystrokes", "g c i p"],
+      "space c y": ["workspace::SendKeystrokes", "y y shift-p g c c"],
+      "space c t": ["workspace::SendKeystrokes", "g c g g"],
+      "space i j": "vim::InsertEmptyLineBelow",
+      "space i k": "vim::InsertEmptyLineAbove",
+      "space j n": ["workspace::SendKeystrokes", "i enter escape"],
+      "space j o": ["workspace::SendKeystrokes", "i enter escape k $"],
+      "space q s": ["workspace::SendKeystrokes", "space f shift-s space q q"],
+      "space x u": ["workspace::SendKeystrokes", "v u"],
+      "space x shift-u": ["workspace::SendKeystrokes", "v shift-u"],
+      "space x t c": ["workspace::SendKeystrokes", "x h shift-p"],
+      "space x t l": ["workspace::SendKeystrokes", "d d k shift-p"]
+    }
+  },
+  {
+    // Leader bindings for when no file is open.
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space space": "command_palette::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space f r": "file_finder::Toggle",
+      "space f t": "project_panel::ToggleFocus",
+      "space p f": "file_finder::Toggle",
+      "space p p": "projects::OpenRecent",
+      "space '": "terminal_panel::ToggleFocus",
+      "space f e d": "zed::OpenSettingsFile",
+      "space f e r": "zed::OpenKeymapFile"
+    }
+  }
+]
