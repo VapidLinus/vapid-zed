@@ -7,6 +7,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "telemetry": { "metrics": false },
+  "auto_install_extensions": {
+    "jetbrains-themes": true,
+    "jetbrains-new-ui-icons": true
+  },
   "reveal_if_open": true,
   "buffer_line_height": "comfortable",
   "edit_predictions": {
